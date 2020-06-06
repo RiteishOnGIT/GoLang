@@ -7,8 +7,11 @@
 <body>
 <ul>
     {{$x := .Name}}
-    {{$y := .Motto}}
+    {{$y := .Last}}
+
     <li>{{$x}} -  {{$y}}</li>
+    <h1>or we can use</h1>
+    <li>{{.Name}} -  {{.Last}}</li>
 </ul>
 </body>
 </html>
