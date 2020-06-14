@@ -17,5 +17,5 @@ func (p pimpo) ServeHTTP(w http.ResponseWriter, req *http.Request){
 
 func main(){
 	var d pimpo
-	http.ListenAndServe(":8080", d)
+	_ = http.ListenAndServe(":8080", d)
 }
