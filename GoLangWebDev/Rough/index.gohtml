@@ -1,10 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Document</title>
 </head>
 <body>
-$END$
+
+<form method="post">
+
+    <input type="email" name="UserName" placeholder="email"><br>
+    <input type="text" name="FirstName" placeholder="first name"><br>
+    <input type="submit">
+
+</form>
+
+
+{{if .FirstName}}
+    USER NAME {{.UserName}}<br>
+    FIRST NAME {{.FirstName}}<br>
+{{end}}
+
+<br>
+<h2>Go to <a href="/bar">the bar</a></h2>
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+</head>
+<body>
+{{range .IDS}}
+{{.}}
+{{end}}
+
+{{range $x, $v := .}}
+    {{$x}} - {{$v}}
+{{end}}
+<h1>The meaning of life: {{.}}</h1>
+</body>
+</html>

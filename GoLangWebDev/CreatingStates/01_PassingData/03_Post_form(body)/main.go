@@ -1,1 +1,23 @@
-package _3_Post_form_body_
+package main
+
+import (
+	"io"
+	"net/http"
+)
+
+func main(){
+	http.HandleFunc("/", foo)
+	http.Handle("facicon.ico", http.NotFoundHandler())
+	http.ListenAndServe(":8080", nil)
+}
+
+func foo(w http.ResponseWriter, req *http.Request){
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	v := req.FormValue("q")
+
+	io.WriteString(w, `<form method="POST">
+	 <input type="text" name="q">
+	 <input type="submit">
+	</form>
+	<br>`+v)
+}
