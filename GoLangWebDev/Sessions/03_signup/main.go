@@ -1,10 +1,9 @@
 package main
 
 import (
+	uuid "github.com/satori/go.uuid"
 	"html/template"
 	"net/http"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 type user struct {
@@ -44,44 +43,37 @@ func bar(w http.ResponseWriter, req *http.Request) {
 	tpl.ExecuteTemplate(w, "bar.gohtml", u)
 }
 
-func signup(w http.ResponseWriter, req *http.Request) {
-	if alreadyLoggedIn(req) {
+func signup(w http.ResponseWriter, req *http.Request){
+	if alreadyLoggedIn(req){
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
+
 	}
 
-	// process form submission
-	if req.Method == http.MethodPost {
-
-		// get form values
+	if req.Method == http.MethodPost{
 		un := req.FormValue("username")
 		p := req.FormValue("password")
 		f := req.FormValue("firstname")
 		l := req.FormValue("lastname")
 
-		// username taken?
-		if _, ok := dbUsers[un]; ok {
-			http.Error(w, "Username already taken", http.StatusForbidden)
-			return
+		if _, ok := dbUsers[un]; ok{
+			http.Error(w, "username alerady taken", http.StatusForbidden)
 		}
 
-		// create session
-		sID, _ := uuid.NewV4()
+		sID, _ :=uuid.NewV4()
 		c := &http.Cookie{
-			Name:  "session",
+			Name: "session",
 			Value: sID.String(),
 		}
 		http.SetCookie(w, c)
-		dbSessions[c.Value] = un
 
-		// store user in dbUsers
 		u := user{un, p, f, l}
+		dbSessions[c.Value] = un
 		dbUsers[un] = u
 
-		// redirect
-		http.Redirect(w, req, "/", http.StatusSeeOther)
+		http.Redirect(w,req , "/", http.StatusSeeOther )
 		return
 	}
-
 	tpl.ExecuteTemplate(w, "signup.gohtml", nil)
+
 }
